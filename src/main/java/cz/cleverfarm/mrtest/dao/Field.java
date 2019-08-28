@@ -1,5 +1,7 @@
 package cz.cleverfarm.mrtest.dao;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -21,22 +23,24 @@ public class Field extends GeneratedLongIdEntity {
 
     @OneToMany(mappedBy = "id.field")
     @OrderBy("POINT_ORDER ASC")
-    private List<FieldBoundaryPoint> geometry;
+    private List<FieldBoundaryPoint> geometry = Lists.newArrayList();
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Field setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Farm getFarm() {
         return farm;
     }
 
-    public void setFarm(Farm farm) {
+    public Field setFarm(Farm farm) {
         this.farm = farm;
+        return this;
     }
 
     public List<FieldBoundaryPoint> getGeometry() {

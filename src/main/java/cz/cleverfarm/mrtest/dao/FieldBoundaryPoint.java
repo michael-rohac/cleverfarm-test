@@ -1,9 +1,13 @@
 package cz.cleverfarm.mrtest.dao;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * Holds coordinates expected to be in S-JTSK coordinate system.
+ *
  * © 2019 Michal Rohac, All Rights Reserved.
  */
 @Entity
@@ -13,11 +17,18 @@ public class FieldBoundaryPoint extends AbstractEntity<FieldBoundaryPoint.Id> {
     @EmbeddedId
     private Id id;
 
-    @Column(nullable = false, columnDefinition = "decimal(11,8)")
-    private Double lon;
+    @Column(name = "SJTSK_X", nullable = false, columnDefinition = "decimal(10,3)")
+    private Double x;
 
-    @Column(nullable = false, columnDefinition = "decimal(10,8)")
-    private Double lat;
+    @Column(name = "SJTSK_Y", nullable = false, columnDefinition = "decimal(10,3)")
+    private Double y;
+
+    public FieldBoundaryPoint() {
+    }
+
+    public FieldBoundaryPoint(Id id) {
+        this.id = id;
+    }
 
     @Override
     public Id getId() {
@@ -29,20 +40,22 @@ public class FieldBoundaryPoint extends AbstractEntity<FieldBoundaryPoint.Id> {
         this.id = id;
     }
 
-    public Double getLon() {
-        return lon;
+    public Double getX() {
+        return x;
     }
 
-    public void setLon(Double lon) {
-        this.lon = lon;
+    public FieldBoundaryPoint setX(Double x) {
+        this.x = Preconditions.checkNotNull(x);
+        return this;
     }
 
-    public Double getLat() {
-        return lat;
+    public Double getY() {
+        return y;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
+    public FieldBoundaryPoint setY(Double y) {
+        this.y = Preconditions.checkNotNull(y);
+        return this;
     }
 
     @Embeddable
@@ -59,16 +72,18 @@ public class FieldBoundaryPoint extends AbstractEntity<FieldBoundaryPoint.Id> {
             return field;
         }
 
-        public void setField(Field field) {
+        public Id setField(Field field) {
             this.field = field;
+            return this;
         }
 
         public Integer getOrder() {
             return order;
         }
 
-        public void setOrder(Integer order) {
+        public Id setOrder(Integer order) {
             this.order = order;
+            return this;
         }
     }
 

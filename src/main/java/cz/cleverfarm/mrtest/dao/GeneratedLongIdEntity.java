@@ -1,7 +1,6 @@
 package cz.cleverfarm.mrtest.dao;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * © 2019 Michal Rohac, All Rights Reserved.

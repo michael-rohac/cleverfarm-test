@@ -1,5 +1,7 @@
 package cz.cleverfarm.mrtest.dao;
 
+import com.google.common.collect.Sets;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class Farm extends GeneratedLongIdEntity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "FARM_ID")
-    private Set<Field> fields;
+    private Set<Field> fields = Sets.newHashSet();
 
     public String getName() {
         return name;
