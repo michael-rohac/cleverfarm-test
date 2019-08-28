@@ -16,7 +16,9 @@ This project is using Maven so to build the project follow basic Maven instructi
 
 Result of build is WAR file deployable & runnable in common servlet containers (not tested). To run project with embeeded
 servlet container just run `MrtestApplication#main` method. Due to lack of time there are no unit tests or any fancy validations
-using GeoTools testing i.e. farm field polygon validity.   
+using GeoTools testing i.e. farm field polygon validity.
+
+After running project go to page: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)   
 
 # Features
 
