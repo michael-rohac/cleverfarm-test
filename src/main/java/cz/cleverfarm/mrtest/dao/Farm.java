@@ -26,23 +26,26 @@ public class Farm extends GeneratedLongIdEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public Farm setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
+    public Farm setNote(String note) {
         this.note = note;
+        return this;
     }
 
     public Set<Field> getFields() {
         return fields;
     }
 
-    public void setFields(Set<Field> fields) {
+    public Farm setFields(Set<Field> fields) {
         this.fields = fields;
+        return this;
     }
 }

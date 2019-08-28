@@ -11,7 +11,6 @@ public abstract class GeneratedLongIdEntity extends AbstractEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", columnDefinition = "numeric(10,0)")
-    @NotNull
     private Long id;
 
     @Override
