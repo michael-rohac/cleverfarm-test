@@ -20,7 +20,7 @@ public class Farm extends GeneratedLongIdEntity {
     @Column(name = "NOTE")
     private String note;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "FARM_ID")
     private Set<Field> fields = Sets.newHashSet();
 

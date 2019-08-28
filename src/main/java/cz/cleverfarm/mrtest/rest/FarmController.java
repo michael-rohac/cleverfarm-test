@@ -10,11 +10,13 @@ import cz.cleverfarm.mrtest.repo.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,10 +45,52 @@ public class FarmController {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping(UrlMappings.FARMS_ENDPOINT)
+    public ResponseEntity createFarm(@RequestBody @Valid FarmDto farmDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        Farm farm = farmRepository.save(new Farm()
+                .setName(farmDto.getName())
+                .setNote(farmDto.getNote())
+        );
+
+        return new ResponseEntity(conversionService.convert(farm, FarmDto.class), HttpStatus.CREATED);
+    }
+
     @GetMapping(UrlMappings.FARM_ENDPOINT)
     public FarmDto getFarm(@PathVariable(UrlMappings.FARM_ID) Long farmId) {
         Optional<Farm> optFarm = farmRepository.findById(farmId);
-        return optFarm.isPresent() ? conversionService.convert(optFarm.get(), FarmDto.class) : null;
+        return optFarm.isPresent() ? addFarmLinks(conversionService.convert(optFarm.get(), FarmDto.class)) : null;
+    }
+
+    @PutMapping(UrlMappings.FARM_ENDPOINT)
+    public ResponseEntity updateFarm(
+            @PathVariable(UrlMappings.FARM_ID) Long farmId,
+            @RequestBody @Valid FarmDto farmDto,
+            BindingResult bindingResult)
+    {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Farm> optFarm = farmRepository.findById(farmId);
+        if (!optFarm.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        Farm farm = optFarm.get();
+        farm.setName(farmDto.getName());
+        farm.setNote(farmDto.getNote());
+        farm = farmRepository.save(farm);
+        return new ResponseEntity(conversionService.convert(farm, FarmDto.class), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(UrlMappings.FARM_ENDPOINT)
+    public ResponseEntity deleteFarm(@PathVariable(UrlMappings.FARM_ID) Long farmId) {
+        Optional<Farm> optFarm = farmRepository.findById(farmId);
+        if (!optFarm.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        farmRepository.delete(optFarm.get());
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(UrlMappings.FIELDS_ENDPOINT)

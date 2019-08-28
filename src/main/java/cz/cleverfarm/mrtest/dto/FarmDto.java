@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class FarmDto extends ResourceSupport {
     @JsonProperty("id")
     private Long entityId;
 
+    @NotBlank
     private String name;
 
     private String note;

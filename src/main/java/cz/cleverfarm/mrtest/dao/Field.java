@@ -21,7 +21,7 @@ public class Field extends GeneratedLongIdEntity {
     @JoinColumn(name = "FARM_ID")
     private Farm farm;
 
-    @OneToMany(mappedBy = "id.field")
+    @OneToMany(mappedBy = "id.field", cascade = CascadeType.REMOVE)
     @OrderBy("POINT_ORDER ASC")
     private List<FieldBoundaryPoint> boundary = Lists.newArrayList();
 
