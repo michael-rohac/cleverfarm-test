@@ -40,9 +40,9 @@ public class DBInitializer implements InitializingBean {
     }
 
     private static final List<List<Double>> FIELD_COORDINATES = Lists.<List<Double>>newArrayList(
-            Lists.<Double>newArrayList(575848.31, 1156552.85, 575838.46, 1156565.46, 575866.54, 1156567.08, 575857.72, 1156580.5),
-            Lists.<Double>newArrayList(575838.46, 1156565.46, 575828.62, 1156578.08, 575857.72, 1156580.5, 575848.15, 1156593.31),
-            Lists.<Double>newArrayList(575828.62, 1156578.08, 575818.77, 1156590.69, 575837.42, 1156605.25, 575848.15, 1156593.31)
+            Lists.<Double>newArrayList(575866.54, 1156567.08, 575848.31, 1156552.85, 575838.46, 1156565.46, 575857.72, 1156580.5),
+            Lists.<Double>newArrayList(575857.72, 1156580.5, 575838.46, 1156565.46, 575828.62, 1156578.08, 575848.15, 1156593.31),
+            Lists.<Double>newArrayList(575837.42, 1156605.25, 575848.15, 1156593.31, 575828.62, 1156578.08, 575818.77, 1156590.69)
     );
 
     private void populateSampleData() {
