@@ -23,7 +23,7 @@ public class FarmToFarmDto implements Converter<Farm, FarmDto> {
                 .setName(farm.getName())
                 .setNote(farm.getNote());
         result.getFields().addAll(farm.getFields().stream()
-                .map(field -> new FieldDto()
+                .map(field -> new FieldDto(field.getId())
                         .setName(field.getName())
                 )
                 .collect(Collectors.toList())
