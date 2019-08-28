@@ -1,8 +1,11 @@
 package cz.cleverfarm.mrtest.rest;
 
+import com.google.common.collect.Lists;
 import cz.cleverfarm.mrtest.dao.Farm;
 import cz.cleverfarm.mrtest.dto.FarmDto;
+import cz.cleverfarm.mrtest.dto.FieldDto;
 import cz.cleverfarm.mrtest.repo.FarmRepository;
+import cz.cleverfarm.mrtest.repo.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,9 @@ public class FarmController {
     private FarmRepository farmRepository;
 
     @Autowired
+    private FieldRepository fieldRepository;
+
+    @Autowired
     private ConversionService conversionService;
 
     @GetMapping(UrlMappings.FARMS_ENDPOINT)
@@ -40,6 +46,15 @@ public class FarmController {
         return optFarm.isPresent() ? conversionService.convert(optFarm.get(), FarmDto.class) : null;
     }
 
+    @GetMapping(UrlMappings.FIELDS_ENDPOINT)
+    public List<FieldDto> listAllFields(@PathVariable(UrlMappings.FARM_ID) Long farmId) {
+        Optional<Farm> optFarm = farmRepository.findById(farmId);
+        return !optFarm.isPresent() ? Lists.newArrayList() : optFarm.get().getFields().stream()
+                .map(field -> conversionService.convert(field, FieldDto.class))
+                .collect(Collectors.toList());
+    }
+
+    
 
     private FarmDto addFarmLinks(FarmDto farmDto) {
         try {

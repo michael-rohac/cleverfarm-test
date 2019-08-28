@@ -23,7 +23,7 @@ public class Field extends GeneratedLongIdEntity {
 
     @OneToMany(mappedBy = "id.field")
     @OrderBy("POINT_ORDER ASC")
-    private List<FieldBoundaryPoint> geometry = Lists.newArrayList();
+    private List<FieldBoundaryPoint> boundary = Lists.newArrayList();
 
     public String getName() {
         return name;
@@ -43,11 +43,11 @@ public class Field extends GeneratedLongIdEntity {
         return this;
     }
 
-    public List<FieldBoundaryPoint> getGeometry() {
-        return geometry;
+    public List<FieldBoundaryPoint> getBoundary() {
+        return boundary;
     }
 
-    public void setGeometry(List<FieldBoundaryPoint> geometry) {
-        this.geometry = geometry;
+    public void setBoundary(List<FieldBoundaryPoint> boundary) {
+        this.boundary = boundary;
     }
 }
