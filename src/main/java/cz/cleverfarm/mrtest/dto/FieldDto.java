@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -14,10 +16,13 @@ public class FieldDto extends ResourceSupport {
     @JsonProperty("id")
     private Long entityId;
 
+    @NotNull
     private String name;
 
     private Double area;
 
+    @NotNull
+    @Size(min = 3)
     private final List<BoundaryPoint> boundary = Lists.newArrayList();
 
     public FieldDto() {
